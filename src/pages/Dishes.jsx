@@ -1,30 +1,19 @@
 import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Plus, Pencil, Trash2, Loader2 } from "lucide-react";
 import { toast } from "react-toastify";
 import { useAuth } from "@/store/useAuth";
+import CreateDishModal from "@/components/createDishModal";
+import UpdateDishModal from "@/components/updateDishModal";
 
 export default function Dishes() {
   const [dishes, setDishes] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setModalOpen] = useState(null);
   const [editingDish, setEditingDish] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    quantity: "full",
-    category: "starters",
-    dietory: "veg",
-    price: "",
-    image: "",
-  });
   const { token } = useAuth();
 
   const API_BASE = import.meta.env.VITE_API_URL || process.env.REACT_APP_API_URL || "http://localhost:5000";
@@ -47,48 +36,6 @@ export default function Dishes() {
     fetchDishes();
   }, []);
 
-  const openModal = (dish = null) => {
-    setEditingDish(dish);
-    setFormData(
-      dish || {
-        name: "",
-        description: "",
-        quantity: "full",
-        category: "starters",
-        dietory: "veg",
-        price: "",
-        image: "",
-      }
-    );
-    setModalOpen(true);
-  };
-
-  const handleChange = (name, value) => {
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async () => {
-    try {
-      const url = editingDish ? `${API_BASE}/api/dish/${editingDish._id}` : `${API_BASE}/api/dish/`;
-      const method = editingDish ? "PUT" : "POST";
-      const res = await fetch(url, {
-        method,
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Failed to save dish");
-      toast.success(editingDish ? "Dish updated" : "Dish created");
-      fetchDishes();
-      setModalOpen(false);
-    } catch (error) {
-      toast.error(error.message || "Server error while saving dish");
-    }
-  };
-
   const handleDelete = async (id) => {
     try {
       const res = await fetch(`${API_BASE}/api/dish/${id}`, {
@@ -110,7 +57,7 @@ export default function Dishes() {
     <section className="space-y-6 p-4">
       <header className="flex justify-between items-center">
         <h2 className="text-2xl font-bold text-zinc-800">Dishes</h2>
-        <Button onClick={() => openModal()} className="flex items-center gap-2 bg-zinc-800 hover:bg-zinc-900">
+        <Button onClick={() => setModalOpen("create")} className="flex items-center gap-2 bg-zinc-800 hover:bg-zinc-900">
           <Plus size={18} /> Add Dish
         </Button>
       </header>
@@ -158,7 +105,10 @@ export default function Dishes() {
                     <Button
                       variant="outline"
                       size="sm"
-                      onClick={() => openModal(dish)}
+                      onClick={() => {
+                        setEditingDish(dish);
+                        setModalOpen("update");
+                      }}
                       className="group-hover:bg-zinc-100"
                     >
                       <Pencil size={16} />
@@ -179,118 +129,19 @@ export default function Dishes() {
         </div>
       )}
 
-      <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="text-xl font-semibold text-zinc-800">
-              {editingDish ? "Edit Dish" : "Add Dish"}
-            </DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4">
-            <div>
-              <label className="text-sm font-medium text-zinc-700">Dish Name</label>
-              <Input
-                placeholder="Enter dish name"
-                name="name"
-                value={formData.name}
-                onChange={(e) => handleChange(e.target.name, e.target.value)}
-                className="mt-1"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium text-zinc-700">Description</label>
-              <Textarea
-                placeholder="Enter description"
-                name="description"
-                value={formData.description}
-                onChange={(e) => handleChange(e.target.name, e.target.value)}
-                className="mt-1"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium text-zinc-700">Image URL</label>
-              <Input
-                placeholder="Enter image URL"
-                name="image"
-                value={formData.image}
-                onChange={(e) => handleChange(e.target.name, e.target.value)}
-                className="mt-1"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium text-zinc-700">Price</label>
-              <Input
-                type="number"
-                placeholder="Enter price"
-                name="price"
-                value={formData.price}
-                onChange={(e) => handleChange(e.target.name, e.target.value)}
-                className="mt-1"
-              />
-            </div>
-            <div>
-              <label className="text-sm font-medium text-zinc-700">Dietary</label>
-              <Select
-                name="dietory"
-                value={formData.dietory}
-                onValueChange={(value) => handleChange("dietory", value)}
-              >
-                <SelectTrigger className="mt-1">
-                  <SelectValue placeholder="Select dietary" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="veg">Veg</SelectItem>
-                  <SelectItem value="non-veg">Non-Veg</SelectItem>
-                  <SelectItem value="eggetarian">Eggetarian</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <label className="text-sm font-medium text-zinc-700">Category</label>
-              <Select
-                name="category"
-                value={formData.category}
-                onValueChange={(value) => handleChange("category", value)}
-              >
-                <SelectTrigger className="mt-1">
-                  <SelectValue placeholder="Select category" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="snacks">Snacks</SelectItem>
-                  <SelectItem value="starters">Starters</SelectItem>
-                  <SelectItem value="main-course">Main Course</SelectItem>
-                  <SelectItem value="desert">Dessert</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <div>
-              <label className="text-sm font-medium text-zinc-700">Quantity</label>
-              <Select
-                name="quantity"
-                value={formData.quantity}
-                onValueChange={(value) => handleChange("quantity", value)}
-              >
-                <SelectTrigger className="mt-1">
-                  <SelectValue placeholder="Select quantity" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="half">Half</SelectItem>
-                  <SelectItem value="full">Full</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button
-              onClick={handleSubmit}
-              className="bg-zinc-800 hover:bg-zinc-900"
-              disabled={loading}
-            >
-              {editingDish ? "Update" : "Create"}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
+      <CreateDishModal
+        isOpen={modalOpen === "create"}
+        onClose={() => setModalOpen(null)}
+        onSuccess={fetchDishes}
+        token={token}
+      />
+      <UpdateDishModal
+        isOpen={modalOpen === "update"}
+        onClose={() => setModalOpen(null)}
+        dish={editingDish}
+        onSuccess={fetchDishes}
+        token={token}
+      />
 
       <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
         <AlertDialogContent>
