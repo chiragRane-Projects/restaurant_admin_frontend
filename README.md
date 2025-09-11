@@ -57,15 +57,13 @@ npm run build
 ## 📌 Roadmap
 - [x] Login system
 - [x] Dishes CRUD
-- [x] Tables management
+- [ ] Tables management
 - [ ] Orders management
 - [ ] Reports dashboard
 - [ ] Mobile App (separate repo)
 
-## 🔗 Official Plugins
-Currently, two official plugins are available with Vite React setup:
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) (Babel, Fast Refresh)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) (SWC, Fast Refresh)
+## 🔗 Checkout the backend code
+- [Backend] (https://github.com/chiragRane-Projects/restaurant_admin_backend.git)
 
 ## 👨‍💻 Author
 Developed by **Chirag**.
