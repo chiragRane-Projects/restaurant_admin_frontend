@@ -35,7 +35,7 @@ restaurant-admin-frontend/
 ## ⚡ Getting Started
 ### 1. Clone the repo
 ```bash
-git clone https://github.com/your-username/restaurant-admin-frontend.git
+git clone https://github.com/chiragRane-Projects/restaurant_admin_frontend.git
 cd restaurant-admin-frontend
 ```
 
