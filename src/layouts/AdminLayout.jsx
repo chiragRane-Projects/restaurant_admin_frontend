@@ -1,6 +1,6 @@
 import { Outlet, Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Home, Utensils, Users, FileText, Table2, Menu, X } from "lucide-react";
+import { Home, Utensils, Users, FileText, Table2, Menu, X, HandPlatter } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/store/useAuth";
@@ -15,6 +15,7 @@ export default function AdminLayout() {
   const navItems = [
     { path: "/", label: "Dashboard", icon: Home },
     { path: "/dishes", label: "Dishes", icon: Utensils },
+    { path: "/orders", label: "Orders", icon: HandPlatter},
     { path: "/customers", label: "Customers", icon: Users },
     { path: "/reports", label: "Reports", icon: FileText },
     { path: "/tables", label: "Tables", icon: Table2 },

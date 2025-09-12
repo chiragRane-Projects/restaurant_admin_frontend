@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "@/pages/Login";
 import Dashboard from "@/pages/Dashboard";
 import Dishes from "@/pages/Dishes";
+import Orders from "@/pages/Orders";
 import Customers from "@/pages/Customers";
 import Reports from "@/pages/Reports";
 import Tables from "@/pages/Tables";
@@ -18,6 +19,7 @@ export default function AppRoutes() {
                     <Route path="/" element={<Dashboard />} />
                     <Route path="/dishes" element={<Dishes />} />
                     <Route path="/customers" element={<Customers />} />
+                    <Route path="/orders" element={<Orders/>}/>
                     <Route path="/reports" element={<Reports />} />
                     <Route path="/tables" element={<Tables />} />
                 </Route>
