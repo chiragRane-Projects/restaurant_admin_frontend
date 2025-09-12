@@ -39,9 +39,6 @@ export default function Tables() {
 
   const API_BASE = import.meta.env.VITE_API_URL || process.env.REACT_APP_API_URL || "http://localhost:5000";
 
-  // Log API_BASE for debugging
-  console.log("API_BASE:", API_BASE);
-
   const validateResponse = async (response) => {
     const contentType = response.headers.get("content-type");
     if (!contentType || !contentType.includes("application/json")) {
