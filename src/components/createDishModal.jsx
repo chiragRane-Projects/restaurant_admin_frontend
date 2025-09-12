@@ -12,7 +12,7 @@ export default function CreateDishModal({ isOpen, onClose, onSuccess, token }) {
     description: "",
     quantity: "full",
     category: "starters",
-    dietary: "veg",
+    dietory: "veg",
     price: "",
     image: "",
   });
@@ -97,14 +97,14 @@ export default function CreateDishModal({ isOpen, onClose, onSuccess, token }) {
             />
           </section>
           <section>
-            <label className="text-sm font-medium text-zinc-700">Dietary</label>
+            <label className="text-sm font-medium text-zinc-700">dietory</label>
             <Select
-              name="dietary"
-              value={formData.dietary}
-              onValueChange={(value) => handleChange("dietary", value)}
+              name="dietory"
+              value={formData.dietory}
+              onValueChange={(value) => handleChange("dietory", value)}
             >
               <SelectTrigger className="mt-1">
-                <SelectValue placeholder="Select dietary" />
+                <SelectValue placeholder="Select dietory" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="veg">Veg</SelectItem>

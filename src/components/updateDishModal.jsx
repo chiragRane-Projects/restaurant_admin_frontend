@@ -96,14 +96,14 @@ export default function UpdateDishModal({ isOpen, onClose, dish, onSuccess, toke
             />
           </section>
           <section>
-            <label className="text-sm font-medium text-zinc-700">Dietary</label>
+            <label className="text-sm font-medium text-zinc-700">dietory</label>
             <Select
               name="dietory"
               value={formData.dietory}
               onValueChange={(value) => handleChange("dietory", value)}
             >
               <SelectTrigger className="mt-1">
-                <SelectValue placeholder="Select dietary" />
+                <SelectValue placeholder="Select dietory" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="veg">Veg</SelectItem>
