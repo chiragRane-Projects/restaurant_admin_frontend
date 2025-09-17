@@ -10,7 +10,7 @@ export default function CreateDishModal({ isOpen, onClose, onSuccess, token }) {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    quantity: "full",
+    portion: "full",
     category: "starters",
     dietory: "veg",
     price: "",
@@ -109,7 +109,7 @@ export default function CreateDishModal({ isOpen, onClose, onSuccess, token }) {
               <SelectContent>
                 <SelectItem value="veg">Veg</SelectItem>
                 <SelectItem value="non-veg">Non-Veg</SelectItem>
-                <SelectItem value="eggetarian">Eggetarian</SelectItem>
+                <SelectItem value="egge">Eggetrian</SelectItem>
               </SelectContent>
             </Select>
           </section>
@@ -134,9 +134,9 @@ export default function CreateDishModal({ isOpen, onClose, onSuccess, token }) {
           <section>
             <label className="text-sm font-medium text-zinc-700">Quantity</label>
             <Select
-              name="quantity"
-              value={formData.quantity}
-              onValueChange={(value) => handleChange("quantity", value)}
+              name="portion"
+              value={formData.portion}
+              onValueChange={(value) => handleChange("portion", value)}
             >
               <SelectTrigger className="mt-1">
                 <SelectValue placeholder="Select quantity" />

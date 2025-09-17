@@ -10,7 +10,7 @@ export default function UpdateDishModal({ isOpen, onClose, dish, onSuccess, toke
   const [formData, setFormData] = useState({
     name: dish?.name || "",
     description: dish?.description || "",
-    quantity: dish?.quantity || "full",
+    portion: dish?.portion || "full",
     category: dish?.category || "starters",
     dietory: dish?.dietory || "veg",
     price: dish?.price || "",
@@ -108,7 +108,7 @@ export default function UpdateDishModal({ isOpen, onClose, dish, onSuccess, toke
               <SelectContent>
                 <SelectItem value="veg">Veg</SelectItem>
                 <SelectItem value="non-veg">Non-Veg</SelectItem>
-                <SelectItem value="eggetarian">Eggetarian</SelectItem>
+                <SelectItem value="egge">Eggetarian</SelectItem>
               </SelectContent>
             </Select>
           </section>
@@ -133,9 +133,9 @@ export default function UpdateDishModal({ isOpen, onClose, dish, onSuccess, toke
           <section>
             <label className="text-sm font-medium text-zinc-700">Quantity</label>
             <Select
-              name="quantity"
-              value={formData.quantity}
-              onValueChange={(value) => handleChange("quantity", value)}
+              name="portion"
+              value={formData.portion}
+              onValueChange={(value) => handleChange("portion", value)}
             >
               <SelectTrigger className="mt-1">
                 <SelectValue placeholder="Select quantity" />

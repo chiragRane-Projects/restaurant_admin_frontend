@@ -99,7 +99,7 @@ export default function Dishes() {
                   </div>
                   <div className="flex justify-between text-xs text-zinc-500">
                     <span>{dish.category}</span>
-                    <span>{dish.quantity}</span>
+                    <span>{dish.portion}</span>
                   </div>
                   <div className="flex justify-end gap-2 mt-4">
                     <Button
