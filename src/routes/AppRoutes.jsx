@@ -4,7 +4,6 @@ import Dashboard from "@/pages/Dashboard";
 import Dishes from "@/pages/Dishes";
 import Orders from "@/pages/Orders";
 import Customers from "@/pages/Customers";
-import Reports from "@/pages/Reports";
 import Tables from "@/pages/Tables";
 import AdminLayout from "@/layouts/AdminLayout";
 import ProtectedRoute from "@/components/ProtectedRoute";
@@ -20,7 +19,6 @@ export default function AppRoutes() {
                     <Route path="/dishes" element={<Dishes />} />
                     <Route path="/customers" element={<Customers />} />
                     <Route path="/orders" element={<Orders/>}/>
-                    <Route path="/reports" element={<Reports />} />
                     <Route path="/tables" element={<Tables />} />
                 </Route>
             </Routes>

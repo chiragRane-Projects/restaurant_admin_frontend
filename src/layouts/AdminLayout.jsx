@@ -17,7 +17,6 @@ export default function AdminLayout() {
     { path: "/dishes", label: "Dishes", icon: Utensils },
     { path: "/orders", label: "Orders", icon: HandPlatter},
     { path: "/customers", label: "Customers", icon: Users },
-    { path: "/reports", label: "Reports", icon: FileText },
     { path: "/tables", label: "Tables", icon: Table2 },
   ];
 
